@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarel Relubong</title>
+    <link rel="icon" type="image/x-icon" href="jdr.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #050510;
+            --primary-purple: #9d50bb;
+            --secondary-cyan: #2e7fad;
+            --text-main: #ffffff;
+            --text-dim: #b0b0b0;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-bg: #0f0f1e;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif; scroll-behavior: smooth;
+        }
+
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar {
+            display: none;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+
+        .glow {
+            position: fixed; width: 600px; height: 600px;
+            filter: blur(120px); z-index: -1; opacity: 0.15; border-radius: 50%;
+            animation: pulse-glow 10s infinite alternate;
+        }
+        .glow-1 { top: -10%; left: -10%; background: var(--primary-purple); }
+        .glow-2 { bottom: -10%; right: -10%; background: var(--secondary-cyan); animation-delay: -5s; }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.15; }
+            100% { transform: scale(1.2) translate(10%, 10%); opacity: 0.25; }
+        }
+
+        nav {
+            position: fixed; top: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 8%; background: rgba(5, 5, 16, 0.8);
+            backdrop-filter: blur(10px); z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; transition: 0.3s; }
+        .logo:hover { color: var(--secondary-cyan); text-shadow: 0 0 10px var(--secondary-cyan); }
+
+        .nav-links a {
+            color: var(--text-dim); text-decoration: none;
+            margin-left: 2rem; font-size: 0.9rem; transition: 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background: var(--primary-purple); transition: 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--primary-purple); }
+
+        section { padding: 120px 8% 80px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+
+        .badge {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            padding: 6px 15px; border-radius: 20px;
+            font-size: 0.8rem; color: var(--primary-purple);
+            margin-bottom: 1.5rem; display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        #home { flex-direction: row; align-items: center; justify-content: space-between; gap: 4rem; }
+        .hero-content { max-width: 600px; }
+        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 0.5rem; }
+        .name-highlight { 
+            background: linear-gradient(90deg, var(--primary-purple), var(--secondary-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800; 
+        }
+        .hero-description { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+
+        .profile-container { 
+            position: relative; width: 350px; height: 350px; 
+            display: flex; justify-content: center; align-items: center;
+            animation: deep-float 6s ease-in-out infinite;
+        }
+
+        @keyframes deep-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .profile-border {
+            position: absolute; width: 100%; height: 100%;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background: linear-gradient(45deg, var(--primary-purple), var(--secondary-cyan));
+            animation: morph 8s ease-in-out infinite; z-index: 1;
+        }
+        .profile-img {
+            position: relative; width: 95%; height: 95%; object-fit: cover;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            border: 5px solid var(--bg-color); z-index: 2;
+            animation: morph 8s ease-in-out infinite; transition: 0.5s;
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 50% 50% 30% 70% / 50% 60% 40% 50%; }
+        }
+
+        .btn-group { display: flex; gap: 12px; margin-top: 2.5rem; flex-wrap: wrap; }
+        .btn {
+            padding: 12px 24px; border-radius: 8px;
+            text-decoration: none; font-weight: 600;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: flex; align-items: center; gap: 10px;
+            cursor: pointer; border: 1px solid var(--glass-border);
+        }
+        .btn-fill { background: var(--primary-purple); color: white; border: none; }
+        .btn-fill:hover { background: #b35cd6; box-shadow: 0 0 20px rgba(157, 80, 187, 0.4); }
+        .btn-outline { background: var(--glass-bg); color: white; }
+        .btn:hover { transform: translateY(-5px); border-color: var(--primary-purple); }
+
+        .social-links { display: flex; gap: 15px; margin: 1.5rem 0; }
+        .social-btn {
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border);
+            color: white; font-size: 1.4rem; transition: 0.3s; text-decoration: none;
+        }
+        .social-btn:hover {
+            background: var(--primary-purple); border-color: var(--primary-purple);
+            transform: translateY(-5px); box-shadow: 0 0 15px var(--primary-purple);
+        }
+
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .about-text h2 { font-size: 2rem; margin-bottom: 1.5rem; }
+        .about-text p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 1.1rem; }
+        
+        .skills-container { display: flex; flex-direction: column; gap: 1.5rem; }
+        .skill-item { width: 100%; cursor: default; }
+        .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+        .skill-item:hover .skill-info { color: var(--primary-purple); transform: translateX(10px); }
+        .skill-info i { color: var(--primary-purple); margin-right: 8px; font-size: 1.1rem; }
+        
+        .progress-bar-bg { 
+            width: 100%; height: 8px; background: var(--glass-bg); 
+            border: 1px solid var(--glass-border); border-radius: 10px; overflow: hidden; 
+        }
+        .progress-fill { 
+            height: 100%; background: linear-gradient(90deg, var(--primary-purple), var(--secondary-cyan)); 
+            border-radius: 10px; width: 0; transition: 2s cubic-bezier(0.1, 0, 0.2, 1); 
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; margin-top: 2rem; }
+        .card { 
+            background: var(--card-bg); border: 1px solid var(--glass-border); 
+            padding: 2.5rem; border-radius: 20px; transition: 0.4s; 
+            position: relative; overflow: hidden;
+        }
+        .card h3 { margin-bottom: 1rem; color: var(--primary-purple); }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.5s;
+        }
+        .card:hover::before { left: 100%; }
+        .card:hover { border-color: var(--primary-purple); transform: translateY(-10px) scale(1.02); }
+
+        #partner .content-grid {
+            grid-template-columns: 1fr 1.5fr;
+        }
+        .partner-quote {
+            font-style: italic;
+            border-left: 3px solid var(--primary-purple);
+            padding-left: 20px;
+            margin-top: 20px;
+            color: var(--text-main);
+        }
+
+        @media (max-width: 1024px) {
+            #home, #partner .content-grid { flex-direction: column-reverse; text-align: center; }
+            #partner .content-grid { display: flex; flex-direction: column; align-items: center; }
+            .btn-group { justify-content: center; }
+            .content-grid { grid-template-columns: 1fr; }
+            .profile-container { width: 280px; height: 280px; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.17, 0.55, 0.55, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+    </style>
+</head>
+<body>
+
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <nav>
+        <a href="#home" class="logo"></a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#partner">Partner</a> <a href="#portfolio">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="home" class="reveal">
+        <div class="hero-content">
+            <div class="badge">Welcome to my portfolio</div>
+            <h1>I am <span class="name-highlight">Jarel Dave Relubong</span></h1>
+            <p class="hero-description">An aspiring developer who enjoys exploring new technologies and improving skills in the field of IT.</p>
+            
+            <div class="btn-group">
+                <a href="#portfolio" class="btn btn-fill">View Projects</a>
+                <a href="#contact" class="btn btn-outline">Let's Talk</a>
+                <a href="FinalProjects.pdf" download="Jarel_Relubong_Resume.pdf" class="btn btn-outline" style="border-color: var(--secondary-cyan);">
+                    <i class='bx bx-download'></i> Download Here
+                </a>
+            </div>
+        </div>
+
+        <div class="profile-container">
+            <div class="profile-border"></div>
+            <img src="mainprofile2.png" alt="Jarel Relubong" class="profile-img">
+        </div>
+    </section>
+
+    <section id="about" class="reveal">
+        <div class="badge">About Me</div>
+        <div class="content-grid">
+            <div class="about-text">
+                <h2>PHINMA Araullo University Student</h2>
+                <p>I am a student interested in technology, especially in creating applications and systems. I am continuously learning and developing my skills to become better in programming.</p>
+            </div>
+
+            <div class="skills-container">
+                <div class="skill-item">
+                    <div class="skill-info"><span><i class='bx bx-mobile-alt'></i>Mobile Development</span><span>85%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" data-percent="85%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span><i class='bx bx-cloud'></i>Cloud Computing</span><span>70%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" data-percent="70%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span><i class='bx bx-bar-chart-alt-2'></i>Data Analytics</span><span>75%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" data-percent="75%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span><i class='bx bx-network-chart'></i>Networking Basics</span><span>80%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" data-percent="80%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-info"><span><i class='bx bx-layer'></i>Software Architecture</span><span>65%</span></div>
+                    <div class="progress-bar-bg"><div class="progress-fill" data-percent="65%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="partner" class="reveal">
+        <div class="badge">Special Someone</div>
+        <div class="content-grid">
+            <div class="profile-container">
+                <div class="profile-border" style="background: linear-gradient(45deg, #ff4e50, #f9d423);"></div>
+                <img src="partner.jpg" alt="Partner in Crime" class="profile-img"> </div>
+            <div class="about-text">
+                <h2>My Partner in Crime</h2>
+                <p>Someone who knows how to understand how to stay and how not to give up easily. She’s not perfect but she’s real and that’s what I love the most about her.</p>
+                <div class="partner-quote">
+                    Whenever I'm with her everything feels okay. No matter how tired or stressed I am, it all fades because she’s there. She doesn’t need to be anyone else; being herself is already enough. Out of everyone in this world, she’s the one I chose and I would still choose her every single day.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="badge reveal">Portfolio</div>
+        <h2 class="reveal">My Projects</h2>
+        <div class="grid">
+            <div class="card reveal reveal-delay-1">
+                <h3>Student Task Manager App</h3>
+                <p>A mobile app that helps students organize their tasks and deadlines efficiently.</p>
+            </div>
+            <div class="card reveal reveal-delay-2">
+                <h3>Attendance Monitoring System</h3>
+                <p>A system that records and tracks student attendance using cloud storage solutions.</p>
+            </div>
+            <div class="card reveal reveal-delay-3">
+                <h3>Online Grade Viewer</h3>
+                <p>A secure dashboard that allows students to view their academic grades and track performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="align-items: center;" class="reveal">
+        <div class="badge">Contact</div>
+        <h2>Start a Project</h2>
+        
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank" class="social-btn">
+                <i class='bx bxl-facebook'></i>
+            </a>
+            <a href="https://www.instagram.com/j4rel_dve" target="_blank" class="social-btn">
+                <i class='bx bxl-instagram'></i>
+            </a>
+        </div>
+
+        <form id="contactForm" style="width: 100%; max-width: 500px; margin-top: 1rem;">
+            <input type="text" placeholder="Name" style="width: 100%; padding: 15px; margin-bottom: 1rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; color: white; transition: 0.3s;" required>
+            <input type="email" placeholder="Email" style="width: 100%; padding: 15px; margin-bottom: 1rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; color: white; transition: 0.3s;" required>
+            <textarea rows="5" placeholder="Your Message" style="width: 100%; padding: 15px; margin-bottom: 1rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; color: white; resize: none; transition: 0.3s;"></textarea>
+            <button type="submit" class="btn btn-fill" style="width: 100%; justify-content: center;">Send Message</button>
+        </form>
+    </section>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            btn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Sending...";
+            setTimeout(() => {
+                alert('Message received! I will get back to you shortly.');
+                btn.innerHTML = "Send Message";
+                this.reset();
+            }, 1500);
+        });
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                    let bars = reveals[i].querySelectorAll('.progress-fill');
+                    bars.forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-percent');
+                    });
+                }
+            }
+        }
+
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.style.borderColor = 'var(--primary-purple)';
+                input.style.boxShadow = '0 0 15px rgba(157, 80, 187, 0.2)';
+            });
+            input.addEventListener('blur', () => {
+                input.style.borderColor = 'var(--glass-border)';
+                input.style.boxShadow = 'none';
+            });
+        });
+
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>
